@@ -10,11 +10,10 @@
 </template>
 
 <script>
-import axios from "axios";
-import Global from "../Global";
-///SI NECESITO VARIABLES QUE SEAN DECLARADAS PARA TODOS
-//LOS METODOS QUE TENGAMOS EN EL COMPONENT, LO HAREMOS AQUI
-//var urlApiCoches = "https://apicochespaco.azurewebsites.net/";
+import ServiceCoches from "../services/ServiceCoches";
+
+const serviceCohes = new ServiceCoches();
+
 export default {
   name: "CochesComponent",
   data() {
@@ -24,13 +23,8 @@ export default {
   },
   methods: {
     cargarCoches() {
-      var request = "/webresources/coches";
-      //LAS VARIABLES POR ENCIMA DE export default
-      //NO UTILIZAN this
-      var url = Global.urlApiCoches + request;
-      console.log(url);
-      axios.get(url).then((res) => {
-        this.coches = res.data;
+      serviceCohes.getCoches().then(res=>{
+        this.coches=res.data;
       });
     },
   },
